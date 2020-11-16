@@ -23,9 +23,7 @@ pipeline {
                 }
             }
         }
-    }
-
-    stage('push') {
+        stage('push') {
             steps {
                 // LOGIN_TO_ECR
                 eval $(aws ecr get-login --profile my-profile --no-include-email)
@@ -41,9 +39,7 @@ pipeline {
                 }
             }
         }
-    }
-
-    stage('deploy-to-test-env') {
+        stage('deploy-to-test-env') {
             steps {
                 // set kubeconfig
                 // TODO: set kubeconfig
