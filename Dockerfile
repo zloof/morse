@@ -8,6 +8,7 @@ RUN npm install --only=prod
 
 COPY . /app
 
+
 FROM base as server
 
 CMD node src/server.js
