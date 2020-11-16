@@ -1,5 +1,23 @@
-node {
-    checkout scm
-    def dockerfile = 'Dockerfile'
-    def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${dockerfile} .")
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                // build docker
+                echo "hello123"
+                    // docker build \
+                    // -t "morse:v1" \
+                    // --target "server" \
+                    // -f Dockerfile \
+                    // .
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+
+        }
+
+    }
 }
