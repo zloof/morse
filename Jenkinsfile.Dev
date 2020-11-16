@@ -5,11 +5,12 @@ pipeline {
         stage('Build') {
             steps {
                 // build docker
-                    docker build \
-                    -t "morse:v1" \
-                    --target "server" \
-                    -f Dockerfile \
-                    .
+                echo "hello"
+                    // docker build \
+                    // -t "morse:v1" \
+                    // --target "server" \
+                    // -f Dockerfile \
+                    // .
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
