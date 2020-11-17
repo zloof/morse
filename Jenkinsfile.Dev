@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 // build docker
-                echo "123334567891"
+                echo "1233345678912"
                     // docker build \
                     // -t "morse:v1" \
                     // --target "server" \
