@@ -21,3 +21,17 @@ pipeline {
 
     }
 }
+
+
+// properties([ pipelineTriggers([ githubPush ]) ])
+// node {
+//     stage ('Checkout'){
+//         git branch: 'build-first-jenkins-build', url: 'https://github.com/zloof/morse.git'
+//     }
+//     stage ('Build'){
+//        echi "Build step"
+//     }
+//     stage ('Test'){
+//        echi "Test step"
+//     }
+// }
