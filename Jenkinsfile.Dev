@@ -1,79 +1,18 @@
-pipeline {
-    agent {
-        docker { image 'applicaster/circle-runner:latest' }
+node {
+    stage ('Checkout'){
+        git branch: 'build-first-jenkins-build', url: 'https://github.com/zloof/morse.git'
     }
-    stages {
-        stage('Build') {
-            steps {
-                // build docker
-                echo "12"
-                sh "echo hi"
-                sh "docker build ."
-                    // docker build \
-                    // -t "morse:v1" \
-                    // --target "server" \
-                    // -f Dockerfile \
-                    // .
-
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-            }
-
-
+    stage ('Build'){
+        echo "Build step"
+        docker.build('zloof/morse')
+    }
+    stage ('Test'){
+        echo "Test step"
+    }
+    stage ('Push'){
+        // login to AWS-ECR and push the docker image
+        docker.withRegistry('https://138858731413.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
+            docker.image('zloof/morse').push('latest')
         }
-
     }
 }
-
-
-// pipeline {
-//     agent {
-//         docker { image 'applicaster/circle-runner:latest' }
-//     }
-//     stages {
-//         stage('Build') {
-//             steps {
-//                 // build docker
-//                 echo "12"
-//                 sh "echo hi"
-//                 sh "docker build ."
-//             }
-
-//         }
-
-//     }
-// }
-
-
-
-// properties([ pipelineTriggers([ githubPush ]) ])
-// node {
-//     stage ('Checkout'){
-//         git branch: 'build-first-jenkins-build', url: 'https://github.com/zloof/morse.git'
-//     }
-//     stage ('Build'){
-//        echo "Build step"
-//        sh "docker build ."
-//     }
-//     stage ('Test'){
-//        echo "Test step"
-//     }
-// }
-
-// pipeline {
-//     agent {
-//         docker { image 'applicaster/circle-runner:latest' }
-//     }
-//     stages {
-//         stage('Build') {
-//             steps {
-//                 // build docker
-//                 echo "12"
-//                 sh "echo hi"
-//                 sh "docker build ."
-//             }
-
-//         }
-
-//     }
-// }
