@@ -25,6 +25,7 @@ pipeline {
     }
 }
 
+
 // pipeline {
 //     agent {
 //         docker { image 'applicaster/circle-runner:latest' }
