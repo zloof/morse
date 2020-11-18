@@ -52,10 +52,11 @@ pipeline {
 //         git branch: 'build-first-jenkins-build', url: 'https://github.com/zloof/morse.git'
 //     }
 //     stage ('Build'){
-//        echi "Build step"
+//        echo "Build step"
+//        sh "docker build ."
 //     }
 //     stage ('Test'){
-//        echi "Test step"
+//        echo "Test step"
 //     }
 // }
 
