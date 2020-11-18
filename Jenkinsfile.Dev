@@ -1,11 +1,14 @@
 pipeline {
-    agent any
-
+    agent {
+        docker { image 'applicaster/circle-runner:latest' }
+    }
     stages {
         stage('Build') {
             steps {
                 // build docker
                 echo "12"
+                sh "echo hi"
+                sh "docker build ."
                     // docker build \
                     // -t "morse:v1" \
                     // --target "server" \
@@ -22,6 +25,23 @@ pipeline {
     }
 }
 
+// pipeline {
+//     agent {
+//         docker { image 'applicaster/circle-runner:latest' }
+//     }
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 // build docker
+//                 echo "12"
+//                 sh "echo hi"
+//                 sh "docker build ."
+//             }
+
+//         }
+
+//     }
+// }
 
 // properties([ pipelineTriggers([ githubPush ]) ])
 // node {
@@ -33,5 +53,23 @@ pipeline {
 //     }
 //     stage ('Test'){
 //        echi "Test step"
+//     }
+// }
+
+// pipeline {
+//     agent {
+//         docker { image 'applicaster/circle-runner:latest' }
+//     }
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 // build docker
+//                 echo "12"
+//                 sh "echo hi"
+//                 sh "docker build ."
+//             }
+
+//         }
+
 //     }
 // }
