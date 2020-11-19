@@ -14,7 +14,7 @@ node {
             sh "set -e"
             sh "docker-compose -f docker-compose-test.yml up -d server"
             sh "docker-compose -f docker-compose-test.yml build" // build the client
-            def status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up client")
+            def status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up client --abort-on-container-exit")
             echo "status code: ${status}"
             if (status != 0) {
                 error "Program failed, please read logs..."
