@@ -15,6 +15,7 @@ node {
         docker.withRegistry('https://138858731413.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
             docker.image('zloof/morse').push(env.BRANCH_NAME)
         }
-        build job: 'morse_test'
+
+        build(job: "morse_test/${env.BRANCH_NAME}")
     }
 }
