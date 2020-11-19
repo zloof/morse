@@ -3,14 +3,17 @@ node {
         checkout scm
     }
     stage ('Build'){
-        echo "Build step"
-        echo "BRANCH_NAME ${env.BRANCH_NAME}  "
-        sh "docker build -t zloof/morse --target server ."
+        def PORT = 5000 // branch development
+        if(env.BRANCH_NAME == "main" ||  env.BRANCH_NAME == "master" || env.BRANCH_NAME == "release"){
+            PORT = 4000
+            console.log("this is production branch, so using port ${PORT}")
+        }
+        sh "docker build -t zloof/morse --target server  --build-arg PORT=${PORT}  ."
     }
     stage ('Push'){
         // login to AWS-ECR and push the docker image
         docker.withRegistry('https://138858731413.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
-            docker.image('zloof/morse').push('latest')
+            docker.image('zloof/morse').push(env.BRANCH_NAME)
         }
     }
 }

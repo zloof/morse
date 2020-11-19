@@ -4,15 +4,14 @@ node {
     }
     stage ('pull'){
         // login to AWS-ECR and pull the docker image
-        docker.withRegistry('https://138858731413.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
-            docker.image('zloof/morse:latest').pull()
+        docker.withRegistry("https://138858731413.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:demo-ecr-credentials") {
+            docker.image("zloof/morse:${env.BRANCH_NAME}").pull()
         }
     }
     stage ('test'){
         // RUN the server in the background
         def status = null
         try {
-            echo "BRANCH_NAME ${env.BRANCH_NAME}  "
             sh "docker system prune -a"
             status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up --build --force-recreate --abort-on-container-exit")
             echo "status code: ${status}"
