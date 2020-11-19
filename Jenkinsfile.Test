@@ -10,14 +10,14 @@ node {
     }
     stage ('test'){
         // RUN the server in the background
-        sh "docker-compose -f docker-compose-test.yml up -d server"
-        sh "docker-compose -f docker-compose-test.yml build"
-        sh "docker-compose -f docker-compose-test.yml up client"
-        sh "docker-compose -f docker-compose-test.yml down"
-    }
-    post {
-        always {
+        try {
+            sh "docker-compose -f docker-compose-test.yml up -d server"
+            sh "docker-compose -f docker-compose-test.yml build"
+            sh "docker-compose -f docker-compose-test.yml up client"
+        }
+        finally{
             sh "docker-compose -f docker-compose-test.yml down"
         }
+
     }
 }
