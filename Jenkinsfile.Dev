@@ -12,12 +12,12 @@ node {
     }
     stage ('Push'){
         // login to AWS-ECR and push the docker image
-        docker.withRegistry('https://138858731413.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
-            docker.image('zloof/morse').push(env.BRANCH_NAME)
+        docker.withRegistry("https://138858731413.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:demo-ecr-credentials") {
+            docker.image("zloof/morse").push(env.BRANCH_NAME)
         }
     }
     stage ('Trigger testing'){
 
-        build(job: "morse-multibranch-test",wait: false)
+        build job: "morse-pipeline-test", wait: false
     }
 }
