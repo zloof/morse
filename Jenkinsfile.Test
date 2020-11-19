@@ -16,7 +16,7 @@ node {
         // RUN the server in the background
         def status = null
         try {
-            sh "docker system prune -a" // cleanup form the last run
+            sh "docker system prune -a -y" // cleanup form the last run
             status = sh(returnStatus: true, script: "export TRIGGER_BY_USER=${triggerByUser.toString()}  docker-compose -f docker-compose-test.yml up --build --force-recreate --abort-on-container-exit")
             echo "status code: ${status}"
         }
