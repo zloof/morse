@@ -11,6 +11,7 @@ node {
     stage ('test'){
         // RUN the server in the background
         try {
+            sh "set -e"
             sh "docker-compose -f docker-compose-test.yml up -d server"
             sh "docker-compose -f docker-compose-test.yml build"
             sh "docker-compose -f docker-compose-test.yml up client"
@@ -18,6 +19,5 @@ node {
         finally{
             sh "docker-compose -f docker-compose-test.yml down"
         }
-
     }
 }
