@@ -1,6 +1,6 @@
 node {
     stage ('Checkout'){
-        git branch: 'build-first-jenkins-build', url: 'https://github.com/zloof/morse.git'
+        checkout scm
     }
     stage ('Build'){
         echo "Build step"
