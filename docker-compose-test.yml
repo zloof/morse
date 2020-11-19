@@ -2,17 +2,12 @@ version: "3.4"
 services:
   server:
     image: "138858731413.dkr.ecr.us-east-1.amazonaws.com/zloof/morse:latest"
-    environment:
-      PORT: 5000
-    ports:
-      - "5000:5000"
   client:
     build:
       context: ./
       dockerfile: Dockerfile
       target: client
     environment:
-      PORT: 5000
       HOST: "server"
     depends_on:
       - server

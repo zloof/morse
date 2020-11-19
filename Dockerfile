@@ -4,6 +4,10 @@ WORKDIR /app
 
 ARG PORT
 ENV PORT ${PORT}
+
+ARG BRANCH_NAME
+ENV BRANCH_NAME ${BRANCH_NAME}
+
 COPY package.json package-lock.json /app/
 
 RUN npm install --only=prod

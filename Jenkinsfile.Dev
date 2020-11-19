@@ -8,7 +8,7 @@ node {
             PORT = 4000
             console.log("this is production branch, so using port ${PORT}")
         }
-        sh "docker build -t zloof/morse --target server  --build-arg PORT=${PORT}  ."
+        sh "docker build -t zloof/morse --target server  --build-arg PORT=${PORT} --build-arg BRANCH_NAME=${env.BRANCH_NAME}  ."
     }
     stage ('Push'){
         // login to AWS-ECR and push the docker image
