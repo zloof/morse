@@ -3,7 +3,7 @@ node {
         checkout scm
     }
     stage ('pull'){
-        echo "BUILD_CAUSE ${env.BUILD_CAUSE}";
+        echo currentBuild.rawBuild.getCauses().toString()
         // login to AWS-ECR and pull the docker image
         docker.withRegistry("https://138858731413.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:demo-ecr-credentials") {
             docker.image("zloof/morse:${env.BRANCH_NAME}").pull()
