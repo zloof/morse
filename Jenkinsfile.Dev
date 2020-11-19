@@ -3,7 +3,7 @@ node {
         checkout scm
     }
     stage ('Build'){
-        echo currentBuild.rawBuild.getCauses()[0].toString().contains('UserIdCause')
+        echo "BUILD_CAUSE ${env.BUILD_CAUSE}";
         def PORT = 5000 // branch development
         if(env.BRANCH_NAME == "main" ||  env.BRANCH_NAME == "master" || env.BRANCH_NAME == "release"){
             PORT = 4000
