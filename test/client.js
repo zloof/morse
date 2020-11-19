@@ -1,7 +1,7 @@
 const net = require('net');
 const morse = require('morse');
 
-const HOST = process.env.HOST ||  '127.0.0.1'
+const HOST = process.env.HOST ||  'server'
 const port = process.env.PORT || 5000
 
 const client = new net.Socket();

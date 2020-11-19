@@ -14,7 +14,6 @@ node {
         try {
             status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up --abort-on-container-exit")
             echo "status code: ${status}"
-
         }
         catch(Exception e){
 
