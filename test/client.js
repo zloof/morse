@@ -13,9 +13,9 @@ describe('test morse', function() {
 
         client.connect(port,HOST , function() {
 			console.log('Connected');
-			setTimeout(function(){
-				client.end();
-			},morseDataCount)
+			// setTimeout(function(){
+			// 	client.end();
+			// },morseDataCount)
 		});
 
 		client.on('data', function(data) {
@@ -35,5 +35,5 @@ describe('test morse', function() {
 				done(`morseDataCount is not equal to 6 or 7 (morseDataCount=${morseDataCount})`);
 			}
 		});
-    }).timeout(35000);;
+    }).timeout(35000);
 });
