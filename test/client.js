@@ -42,6 +42,7 @@ describe('test morse', function() {
 	}).timeout(35000);
 
 	it('port match branch', function(done) {
+		console.log(`PORT ${PORT}, BRANCH_NAME ${BRANCH_NAME}`)
 		if(["main","master","release"].indexOf(BRANCH_NAME) != -1){ // production branch
 			if(PORT == productionPort){ // check if port match production port
 				done();
