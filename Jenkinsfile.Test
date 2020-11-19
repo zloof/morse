@@ -14,7 +14,7 @@ node {
         try {
             sh "docker-compose -f docker-compose-test.yml up -d server"
             sh "docker-compose -f docker-compose-test.yml build" // build the client
-            status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up client --exit-code-from client")
+            status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up  --exit-code-from client client")
             echo "status code: ${status}"
 
         }
