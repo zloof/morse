@@ -1,7 +1,11 @@
 version: "3.4"
 services:
   server:
-    image: "138858731413.dkr.ecr.us-east-1.amazonaws.com/zloof/morse:latest"
+    # image: "138858731413.dkr.ecr.us-east-1.amazonaws.com/zloof/morse:latest"
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: server
     ports:
       - "5000:5000"
     environment:
