@@ -5,7 +5,6 @@ node {
     stage ('Build'){
         echo "Build step"
         sh "docker build -t zloof/morse --target server ."
-        docker.build('zloof/morse')
     }
     stage ('Test'){
         echo "Test step"
