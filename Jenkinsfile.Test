@@ -10,21 +10,23 @@ node {
     }
     stage ('test'){
         // RUN the server in the background
+        def status = null
         try {
             sh "set -e"
             sh "docker-compose -f docker-compose-test.yml up -d server"
             sh "docker-compose -f docker-compose-test.yml build" // build the client
-            def status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up client --abort-on-container-exit")
+            status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up client --abort-on-container-exit")
             echo "status code: ${status}"
-            if (status != 0) {
-                error "Program failed, please read logs..."
-            }
+
         }
         catch(Exception e){
 
         }
         finally{
             sh "docker-compose -f docker-compose-test.yml down"
+            if (status != 0) {
+                error "Program failed, please read logs..."
+            }
         }
     }
 }
