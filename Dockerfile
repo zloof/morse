@@ -2,7 +2,7 @@ FROM node:14.15.0 as base
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./app/
+COPY package.json package-lock.json /app/
 
 RUN npm install --only=prod
 
@@ -15,4 +15,6 @@ CMD node src/server.js
 
 FROM base as client
 
-CMD node src/client.js
+RUN npm i
+
+CMD npm run test

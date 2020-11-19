@@ -7,18 +7,21 @@ const morseDuration = 30000
 
 var server = net.createServer(async socket => {
 	const remoteAddress = socket.remoteAddress;
-	await sendRecurentMorseCode(socket,remoteAddress,morseInterval,morseDuration);
-	socket.end(); // close the connection
+	await sendRecurrentMorseCode(socket,remoteAddress,morseInterval,morseDuration);
 });
-
 
 server.listen(port , function() {
 	console.log('server bound');
 });
 
-async function sendRecurentMorseCode(socket,message,interval,execDuration){
+async function sendRecurrentMorseCode(socket,message,interval,execDuration){
 	// run while execDuration ended
-	for (let startTime = new Date().getTime(); new Date().getTime() + interval < startTime + execDuration;) {
+	let isConnected = true;
+	socket.on('end', () => {
+		isConnected = false;
+		console.log('client disconnected');
+	});
+	for (let startTime = new Date().getTime(); startTime + execDuration - new Date().getTime() > 0 && isConnected;) {
 		sendMorseCode(socket,message);
 		await sleep(interval) // delayed loop
 	}
@@ -34,3 +37,7 @@ function sleep(ms) {
 	// TODO: need to check why the delay having a milliseconds delta
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+process.on('uncaughtException', function (err) {
+    console.log(err);
+});
