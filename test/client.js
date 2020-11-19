@@ -58,4 +58,3 @@ describe('test morse', function() {
 		}
     })
 });
-
