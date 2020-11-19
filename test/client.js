@@ -5,7 +5,6 @@ const HOST = process.env.HOST ||  '127.0.0.1'
 const port = process.env.PORT || 5000
 
 const client = new net.Socket();
-let startTime = null;
 let morseDataCount = 0
 const morseDuration = 30000
 
@@ -16,7 +15,7 @@ describe('test morse', function() {
 			console.log('Connected');
 			setTimeout(function(){
 				client.end();
-			},30000)
+			},morseDataCount)
 		});
 
 		client.on('data', function(data) {
