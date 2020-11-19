@@ -10,8 +10,6 @@ services:
       PORT: 5000
     ports:
       - "5000:5000"
-    networks:
-      - webnet
   client:
     build:
       context: ./
@@ -22,8 +20,3 @@ services:
       HOST: "server"
     depends_on:
       - server
-    networks:
-      - webnet
-
-networks:
-  webnet:
