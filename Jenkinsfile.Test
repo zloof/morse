@@ -13,11 +13,15 @@ node {
         try {
             sh "set -e"
             sh "docker-compose -f docker-compose-test.yml up -d server"
-            sh "docker-compose -f docker-compose-test.yml build"
-            sh "docker-compose -f docker-compose-test.yml up client"
+            sh "docker-compose -f docker-compose-test.yml build" // build the client
+            sh "docker-compose -f docker-compose-test.yml up client" // run the client
+            def status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up client")
+            if (status != 0) {
+                error "Program failed, please read logs..."
+            }
         }
         catch(Exception e){
-            error "Program failed, please read logs..."
+
         }
         finally{
             sh "docker-compose -f docker-compose-test.yml down"
