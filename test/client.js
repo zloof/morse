@@ -8,9 +8,10 @@ const BRANCH_NAME = process.env.BRANCH_NAME || "undefined"
 const client = new net.Socket();
 let morseDataCount = 0
 const morseDuration = 30000
-//
+
 const productionPort = 4000;
-const developPort = 4000;
+const developPort = 5000;
+
 describe('test morse', function() {
     it('morse duration', function(done) {
         client.connect(PORT,HOST , function() {
