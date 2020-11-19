@@ -18,6 +18,9 @@ node {
     }
     stage ('Trigger testing'){
 
-        build job: "morse-pipeline-test", wait: false
+        build job: "morse-pipeline-test",
+                    parameters: [
+                        string(name: 'BRANCH_NAME', value: env.BRANCH_NAME)],
+                        wait: false
     }
 }
