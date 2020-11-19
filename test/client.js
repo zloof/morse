@@ -28,6 +28,7 @@ describe('test morse', function() {
 
 		client.on('close', function() {
 			console.log('Connection closed');
+			console.log('morseDataCount = ',morseDataCount);
 			if(morseDataCount == 8 || morseDataCount == 9){
 				done();
 			}
