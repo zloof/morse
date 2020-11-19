@@ -4,6 +4,7 @@ node {
     }
     stage ('Build'){
         echo "Build step"
+        echo "BRANCH_NAME ${env.BRANCH_NAME}  "
         sh "docker build -t zloof/morse --target server ."
     }
     stage ('Push'){
