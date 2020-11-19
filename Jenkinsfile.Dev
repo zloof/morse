@@ -16,6 +16,6 @@ node {
             docker.image('zloof/morse').push(env.BRANCH_NAME)
         }
 
-        build(job: "morse_test")
+        build(job: "morse-multibranch-test")
     }
 }
