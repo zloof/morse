@@ -15,7 +15,7 @@ describe('test morse', function() {
 			console.log('Connected');
 			setTimeout(()=> {
 				client.end();
-			},morseDataCount)
+			},morseDuration)
 		});
 
 		client.on('data', function(data) {
