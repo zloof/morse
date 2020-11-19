@@ -15,4 +15,9 @@ node {
         sh "docker-compose -f docker-compose-test.yml up client"
         sh "docker-compose -f docker-compose-test.yml down"
     }
+    post {
+        always {
+            sh "docker-compose -f docker-compose-test.yml down"
+        }
+    }
 }
