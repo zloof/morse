@@ -2,7 +2,9 @@ pipeline {
     agent any
     stages{
         stage ('Checkout'){
-            git branch: 'build-first-jenkins-build', url: 'https://github.com/zloof/morse.git'
+            steps {
+                git branch: 'build-first-jenkins-build', url: 'https://github.com/zloof/morse.git'
+            }
         }
         stage ('pull'){
             // login to AWS-ECR and pull the docker image
