@@ -18,6 +18,6 @@ node {
     }
     stage ('Trigger testing'){
 
-        build job: "morse-multibranch-test", wait: false
+        build(job: "morse-multibranch-test",wait: false)
     }
 }
