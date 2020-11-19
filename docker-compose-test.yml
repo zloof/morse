@@ -9,5 +9,6 @@ services:
       target: client
     environment:
       HOST: "server"
+      TRIGGER_BY_USER: ${TRIGGER_BY_USER:-true}
     depends_on:
       - server
