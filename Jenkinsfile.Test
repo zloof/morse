@@ -5,7 +5,7 @@ node {
     stage ('pull'){
         // login to AWS-ECR and pull the docker image
         docker.withRegistry('https://138858731413.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:demo-ecr-credentials') {
-            docker.image('zloof/morse').pull()
+            docker.image('zloof/morse:latest').pull()
         }
     }
     stage ('test'){
