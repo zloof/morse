@@ -3,6 +3,7 @@ node {
         checkout scm
     }
     stage ('pull'){
+        echo "BRANCH_NAME ${BRANCH_NAME}"
         def triggerByUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').toString().contains('UserIdCause')
         echo "triggerByUser: ${triggerByUser.toString()}"
         // login to AWS-ECR and pull the docker image
