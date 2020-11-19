@@ -36,6 +36,5 @@ describe('test morse', function() {
 				done(`morseDataCount is not equal to 6 or 7 (morseDataCount=${morseDataCount})`);
 			}
 		});
-
     }).timeout(35000);;
 });
