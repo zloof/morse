@@ -3,8 +3,8 @@ node {
         checkout scm
     }
     stage ('pull'){
-        def specificCause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')
-        echo "specificCause ${specificCause}"
+        def specificCause = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').toString().contains('UserIdCause')
+        echo "specificCause ${specificCause.toString()}"
         // login to AWS-ECR and pull the docker image
         docker.withRegistry("https://138858731413.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:demo-ecr-credentials") {
             docker.image("zloof/morse:${env.BRANCH_NAME}").pull()
