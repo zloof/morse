@@ -2,7 +2,7 @@ const net = require('net');
 const morse = require('morse');
 
 const HOST = process.env.HOST || '127.0.0.1'
-const PORT = process.env.PORT || 5000
+let PORT = process.env.PORT || 5000
 const BRANCH_NAME = process.env.BRANCH_NAME || "undefined"
 const TRIGGER_BY_USER = process.env.TRIGGER_BY_USER || true
 if(TRIGGER_BY_USER){
