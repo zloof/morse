@@ -5,6 +5,9 @@ export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 which asdf || git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 
+echo "PWD ${PWD}"
+cd ../
+
 file=".tool-versions"
 
 if [ ! -f $file ]
