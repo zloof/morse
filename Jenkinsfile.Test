@@ -10,7 +10,7 @@ node {
         echo "triggerByUser: ${triggerByUser.toString()}"
         // login to AWS-ECR and pull the docker image
         docker.withRegistry("https://138858731413.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:demo-ecr-credentials") {
-            docker.image("zloof/morse:${env.BRANCH_NAME}")
+            docker.image("zloof/morse:${env.BRANCH_NAME}").pull()
         }
     }
     stage ('test'){
@@ -18,7 +18,7 @@ node {
         def status = null
         try {
 
-            status = sh(returnStatus: true, script: "export TRIGGER_BY_USER=${triggerByUser.toString()} && docker-compose -f docker-compose-test.yml up --build --force-recreate --abort-on-container-exit")
+            status = sh(returnStatus: true, script: "export TRIGGER_BY_USER="${triggerByUser.toString()} && docker-compose -f docker-compose-test.yml up --build --force-recreate --abort-on-container-exit")
             echo "status code: ${status}"
         }
         finally{
@@ -29,4 +29,3 @@ node {
         }
     }
 }
-
