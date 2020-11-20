@@ -13,7 +13,7 @@ image_tag="${BRANCH_NAME}"
 # kubesec decrypt --debug chart/templates/_secret-app-env.enc.yaml > chart/templates/secret-app-env.yaml
 # function cleanup {
 #   rm chart/templates/secret-app-env.yaml
-}
+# }
 trap cleanup EXIT
 # step 4 - deploy
 echo "Deploying ${deployment_name} with image: ${image_tag}"
