@@ -6,7 +6,7 @@ namespace="${PROJECT}"
 deployment_name="${PROJECT}"
 # step 1 - generate-eks-kubeconfig
 export KUBECONFIG="${PWD}/kubeconfig-morse-cluster"
-bin/generate-eks-kubeconfig audience-us2 applicaster-audience > "${KUBECONFIG}"
+bin/generate-eks-kubeconfig audience-us2 > "${KUBECONFIG}"
 # step 2 - get image tag
 image_tag="${BRANCH_NAME}"
 # step 3 - decrypt
