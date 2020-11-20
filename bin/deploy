@@ -1,0 +1,20 @@
+#!/bin/bash
+set -x
+set -e
+PROJECT="morse"
+namespace="${PROJECT}"
+deployment_name="${PROJECT}"
+# step 1 - generate-eks-kubeconfig
+export KUBECONFIG="${PWD}/kubeconfig-morse-cluster"
+bin/generate-eks-kubeconfig audience-us2 applicaster-audience > "${KUBECONFIG}"
+# step 2 - get image tag
+image_tag="${BRANCH_NAME}"
+# step 3 - decrypt
+kubesec decrypt --debug chart/templates/_secret-app-env.enc.yaml > chart/templates/secret-app-env.yaml
+function cleanup {
+  rm chart/templates/secret-app-env.yaml
+}
+trap cleanup EXIT
+# step 4 - deploy
+echo "Deploying ${deployment_name} with image: ${image_tag}"
+helm upgrade --install --wait --set app.tag="${image_tag}" "${deployment_name}" --namespace "${namespace}" ./chart

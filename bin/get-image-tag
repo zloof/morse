@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -x
+set -e
+set -o pipefail
+
+function find_branch_from_sha() {
+  sha=$1
+  BRANCHES=(`git for-each-ref --contains $sha --format "%(refname:short)" refs/heads`)
+
+  if [ "${#BRANCHES[@]}" == "0" ]; then
+    (>&2 echo "Could not find branch for commit sha $sha")
+    exit 1
+  elif echo "${BRANCHES[@]}" | grep "master" > /dev/null; then
+    echo master
+  else
+    echo "$BRANCHES" | head -n 1
+  fi
+}
+
+function fail() {
+  echo "$1"
+  exit 1
+}
+
+sha="$1"
+[ "$sha" == "" ] && fail "Usage: bin/get-image-tag-from-sha <SHA>"
+branch="$2"
+# echo $branch
+image_tag_prefix="$([ "$branch" == "master" ] && echo master || echo branch-$branch )"
+short_sha="$(echo $sha | grep -o -e '^.\{7\}' | head -n 1)"
+echo "$image_tag_prefix-$short_sha"

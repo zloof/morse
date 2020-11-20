@@ -4,7 +4,6 @@ node {
         checkout scm
     }
     stage ('pull'){
-        // sh "docker system prune -a -f" // cleanup form the last run
         echo "BRANCH_NAME ${env.BRANCH_NAME}"
         triggerByUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').toString().contains('UserIdCause')
         echo "triggerByUser: ${triggerByUser.toString()}"

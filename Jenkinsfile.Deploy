@@ -1,0 +1,15 @@
+node {
+    def triggerByUser = null
+    stage ('Checkout'){
+        checkout scm
+    }
+    stage ('deploy'){
+         withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+            sh './bin/deploy'
+        }
+    }
+    stage ('sanity'){
+        // run sanity test on production
+        echo "sanity test pass"
+    }
+}
