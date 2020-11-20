@@ -1,5 +1,6 @@
 #!/bin/bash
-
+set -x
+set -e
 # setting asdf
 export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 which asdf || git clone https://github.com/asdf-vm/asdf.git ~/.asdf
