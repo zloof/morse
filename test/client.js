@@ -12,7 +12,7 @@ if(TRIGGER_BY_USER){
 
 const client = new net.Socket();
 let morseDataCount = 0
-const morseDuration = 30000
+const connectionDuration = 30000
 
 const productionPort = 4000;
 const developPort = 5000;
@@ -23,7 +23,7 @@ describe('test morse', function() {
 			console.log('Connected');
 			setTimeout(()=> {
 				client.end();
-			},morseDuration)
+			},connectionDuration)
 		});
 
 		client.on('data', function(data) {
