@@ -14,7 +14,7 @@ image_tag="${BRANCH_NAME}"
 # function cleanup {
 #   rm chart/templates/secret-app-env.yaml
 # }
-trap cleanup EXIT
+# trap cleanup EXIT
 # step 4 - deploy
 echo "Deploying ${deployment_name} with image: ${image_tag}"
 helm upgrade --install --wait --set app.tag="${image_tag}" "${deployment_name}" --namespace "${namespace}" ./chart
