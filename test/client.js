@@ -19,21 +19,14 @@ const developPort = 5000;
 
 describe('test morse', function() {
     it('morse duration', function(done) {
-		console.log("try to to the server at PPORT ${PORT}")
+		console.log("try to to the server at PORT ${PORT}")
 
-		try
-		{
-			socket.connect(PORT,HOST , function() {
-				console.log('Connected');
-				setTimeout(()=> {
-					socket.end();
-				},connectionDuration)
-			});
-		}
-		catch(ex){
-			console.log('socket error: ' + data);
-			done("ERROR: can't open connection to the server");
-		}
+		socket.connect(PORT,HOST , function() {
+			console.log('Connected');
+			setTimeout(()=> {
+				socket.end();
+			},connectionDuration)
+		});
 
 		socket.on('error', function(data) {
 			console.log('socket error: ' + data);
