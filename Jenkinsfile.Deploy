@@ -4,10 +4,11 @@ node {
         checkout scm
     }
     stage ('init'){
-        sh './bin/asdf-install'
+
     }
     stage ('deploy'){
          withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+            sh './bin/asdf-install'
             sh './bin/deploy'
 
         }
