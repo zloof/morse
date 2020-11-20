@@ -1,5 +1,8 @@
 node {
     def triggerByUser = null
+    stage ('Checkout'){
+        checkout scm
+    }
     stage ('init'){
         sh './bin/asdf-install'
     }
