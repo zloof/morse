@@ -10,7 +10,7 @@ if(TRIGGER_BY_USER == "true"){
 	PORT = 1905
 }
 
-const client = new net.Socket();
+const socket = new net.Socket();
 let morseDataCount = 0
 const connectionDuration = 30000
 
@@ -19,14 +19,20 @@ const developPort = 5000;
 
 describe('test morse', function() {
     it('morse duration', function(done) {
-        client.connect(PORT,HOST , function() {
+		console.log("try to to the server at PPORT ${PORT}")
+        socket.connect(PORT,HOST , function() {
 			console.log('Connected');
 			setTimeout(()=> {
-				client.end();
+				socket.end();
 			},connectionDuration)
 		});
 
-		client.on('data', function(data) {
+		socket.on('error', function(data) {
+			console.log('socket error: ' + data);
+			done("socket error");
+		});
+
+		socket.on('data', function(data) {
 			console.log('morse: ' + data);
 			const clientIP = morse.decode(String(data));
 			console.log('clientIP: ' + clientIP);
@@ -34,7 +40,7 @@ describe('test morse', function() {
 
 		});
 
-		client.on('close', function() {
+		socket.on('close', function() {
 			console.log('Connection closed');
 			console.log('morseDataCount = ',morseDataCount);
 			if(morseDataCount == 6 || morseDataCount == 7){
