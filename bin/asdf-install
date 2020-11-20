@@ -3,6 +3,7 @@
 # setting asdf
 export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 which asdf || git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 
 file=".tool-versions"
 
