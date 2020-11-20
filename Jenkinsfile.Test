@@ -17,12 +17,7 @@ node {
         // RUN the server in the background
         def status = null
         try {
-            sh '''
-                echo "TRIGGER_BY_USER=${triggerByUser.toString()}" > .env
-                echo "BRANCH_NAME=${BRANCH_NAME}" >> .env
-                cat .env
-            '''
-            status = sh(returnStatus: true, script: "docker-compose -f docker-compose-test.yml up --build --force-recreate --abort-on-container-exit")
+            status = sh(returnStatus: true, script: "TRIGGER_BY_USER=${triggerByUser.toString()} docker-compose -f docker-compose-test.yml up --build --force-recreate --abort-on-container-exit")
             echo "status code: ${status}"
         }
         finally{
