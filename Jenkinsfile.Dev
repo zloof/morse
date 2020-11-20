@@ -20,7 +20,7 @@ node {
 
         build job: "morse-test",
                     parameters: [
-                        string(name: 'BRANCH_NAME', value: env.BRANCH_NAME),
+                        string(name: 'BRANCH_NAME', value: env.BRANCH_NAME)],
                         wait: false
     }
 }
