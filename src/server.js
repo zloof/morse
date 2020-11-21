@@ -13,9 +13,7 @@ var server = net.createServer(async socket => {
 		sendMorseCode(socket,remoteAddress);
 	}, morseInterval);
 
-	let isConnected = true;
 	socket.on('end', () => {
-		isConnected = false;
 		clearInterval(interval);
 		console.log('client disconnected');
 	});
