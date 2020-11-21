@@ -13,11 +13,11 @@ server.listen(PORT , function() {
 	console.log('server bound');
 });
 
-async function sendRecurrentMorseCode(socket,message,interval){
+async function sendRecurrentMorseCode(socket,message,morseInterval){
 	// run while execDuration ended
 	const interval = setInterval(() => {
 		sendMorseCode(socket,message);
-	}, interval);
+	}, morseInterval);
 
 	let isConnected = true;
 	socket.on('end', () => {
