@@ -6,17 +6,11 @@ const morseInterval = 5000
 
 var server = net.createServer(async socket => {
 	const remoteAddress = socket.remoteAddress;
-	await sendRecurrentMorseCode(socket,remoteAddress,morseInterval);
-});
-
-server.listen(PORT , function() {
-	console.log('server bound');
-});
-
-async function sendRecurrentMorseCode(socket,message,morseInterval){
-	// run while execDuration ended
+	// send morse code when connection established
+	sendMorseCode(socket,remoteAddress);
+	// send morse code every morseInterval as long the connection is open
 	const interval = setInterval(() => {
-		sendMorseCode(socket,message);
+		sendMorseCode(socket,remoteAddress);
 	}, morseInterval);
 
 	let isConnected = true;
@@ -25,7 +19,11 @@ async function sendRecurrentMorseCode(socket,message,morseInterval){
 		clearInterval(interval);
 		console.log('client disconnected');
 	});
-}
+});
+
+server.listen(PORT , function() {
+	console.log('server bound');
+});
 
 function sendMorseCode(socket,message){
 	const encoded = morse.encode(message);
