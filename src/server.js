@@ -21,7 +21,7 @@ async function sendRecurrentMorseCode(socket,message,interval,execDuration){
 		isConnected = false;
 		console.log('client disconnected');
 	});
-	for (let startTime = new Date().getTime(); startTime + execDuration - new Date().getTime() > 0 && isConnected;) {
+	for (;isConnected;) {
 		sendMorseCode(socket,message);
 		await sleep(interval) // delayed loop
 	}

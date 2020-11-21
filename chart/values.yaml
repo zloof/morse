@@ -5,10 +5,10 @@
 replicaCount: 2
 
 app:
-  repository: 243412158812.dkr.ecr.us-east-1.amazonaws.com/applicaster/device-info
+  repository: 138858731413.dkr.ecr.us-east-1.amazonaws.com/zloof/morse
   tag: ""
   pullPolicy: IfNotPresent
-  port: 3000
+  port: 4000
   resources:
     requests:
       cpu: 250m
@@ -31,9 +31,9 @@ service:
 ingress:
   enabled: true
   hosts:
-    - di.applicaster.com
-    - di.audience-us1.applicaster.com
-    - di.audience-us2.applicaster.com
+    - morse.zloof.com
+    - morse.production-us1.zloof.com
+    - morse.production-us2.zloof.com
 
 nodeSelector: {}
 
