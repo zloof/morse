@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# setting asdf
+export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
+which asdf || git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
+
+file=".tool-versions"
+
+if [ ! -f $file ]
+then
+  echo "${file} file not exists at the working directory"
+  exit 1
+fi
+
+# add plugin
+while IFS= read line
+do
+    # get plugin name
+    plugin="$(echo $line | grep -o -e '^[^ ]*' | head -n 1)"
+    # install plugin
+    asdf plugin-list | grep $plugin || asdf plugin-add $plugin
+done <"$file"
+
+# install
+asdf install

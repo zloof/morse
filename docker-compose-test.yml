@@ -1,0 +1,16 @@
+version: "3.4"
+services:
+  server:
+    image: "138858731413.dkr.ecr.us-east-1.amazonaws.com/zloof/morse:${BRANCH_NAME}"
+  client:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: client
+      args:
+        BRANCH_NAME: "${BRANCH_NAME}"
+    environment:
+      HOST: "server"
+      TRIGGER_BY_USER: ${TRIGGER_BY_USER:-true}
+    depends_on:
+      - server

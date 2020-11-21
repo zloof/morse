@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "_helper.fullname" . }}-web
+  labels:
+    app: {{ template "_helper.name" . }}
+    component: web
+    chart: {{ template "_helper.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "_helper.name" . }}
+      component: web
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "_helper.name" . }}
+        component: web
+        release: {{ .Release.Name }}
+        logging.applicaster.com/format: "logstash"
+      annotations:
+        checksum/configmap-app-env: {{ include (print $.Template.BasePath "/configmap-app-env.yaml") . | sha256sum }}
+        checksum/secret-app-env: {{ include (print $.Template.BasePath "/secret-app-env.yaml") . | sha256sum }}
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.app.repository }}:{{ .Values.app.tag }}"
+          imagePullPolicy: {{ .Values.app.pullPolicy }}
+          ports:
+            - name: app
+              containerPort: {{ .Values.app.port }}
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: app
+            periodSeconds: 10
+            timeoutSeconds: 1
+            initialDelaySeconds: 5
+          envFrom:
+            - configMapRef:
+                name: {{ template "_helper.fullname" . }}-app-env
+            - secretRef:
+                name: {{ template "_helper.fullname" . }}-app-env
+                optional: false
+          resources:
+{{ toYaml .Values.app.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

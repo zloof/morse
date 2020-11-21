@@ -1,0 +1,16 @@
+{
+    "name": "morse",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "dependencies": {
+        "morse": "^0.1.0"
+    },
+    "devDependencies": {
+        "mocha": "^8.2.1"
+    },
+    "scripts": {
+        "server": "node src/server.js",
+        "test":   "mocha test/client.js"
+    }
+}

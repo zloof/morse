@@ -1,0 +1,29 @@
+node {
+    def triggerByUser = null
+    stage ('Checkout'){
+        checkout scm
+    }
+    stage ('pull'){
+        echo "BRANCH_NAME ${env.BRANCH_NAME}"
+        triggerByUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').toString().contains('UserIdCause')
+        echo "triggerByUser: ${triggerByUser.toString()}"
+        // login to AWS-ECR and pull the docker image
+        docker.withRegistry("https://138858731413.dkr.ecr.us-east-1.amazonaws.com", "ecr:us-east-1:ecr-credentials") {
+            docker.image("zloof/morse:${env.BRANCH_NAME}").pull()
+        }
+    }
+    stage ('test'){
+        // RUN the server in the background
+        def status = null
+        try {
+            status = sh(returnStatus: true, script: "export BRANCH_NAME=${env.BRANCH_NAME} && TRIGGER_BY_USER=${triggerByUser.toString()} docker-compose -f docker-compose-test.yml up --build --force-recreate --abort-on-container-exit")
+            echo "status code: ${status}"
+        }
+        finally{
+            sh "docker-compose -f docker-compose-test.yml down"
+            if (status != 0) {
+                error "Tests failed, please read logs..."
+            }
+        }
+    }
+}
