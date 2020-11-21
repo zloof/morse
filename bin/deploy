@@ -18,4 +18,5 @@ image_tag="${BRANCH_NAME}"
 # trap cleanup EXIT
 # step 4 - deploy
 echo "Deploying ${deployment_name} with image: ${image_tag}"
-# helm upgrade --install --create-namespace --wait --set app.tag="${image_tag}" "${deployment_name}" --namespace "${namespace}" ./chart
+# add --create-namespace to create name space
+helm upgrade --install --wait --set app.tag="${image_tag}" "${deployment_name}" --namespace "${namespace}" ./chart
