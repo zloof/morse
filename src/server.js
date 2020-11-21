@@ -3,18 +3,17 @@ const morse = require('morse');
 
 const PORT = process.env.PORT || 5000
 const morseInterval = 5000
-const morseDuration = 30000
 
 var server = net.createServer(async socket => {
 	const remoteAddress = socket.remoteAddress;
-	await sendRecurrentMorseCode(socket,remoteAddress,morseInterval,morseDuration);
+	await sendRecurrentMorseCode(socket,remoteAddress,morseInterval);
 });
 
 server.listen(PORT , function() {
 	console.log('server bound');
 });
 
-async function sendRecurrentMorseCode(socket,message,interval,execDuration){
+async function sendRecurrentMorseCode(socket,message,interval){
 	// run while execDuration ended
 	let isConnected = true;
 	socket.on('end', () => {

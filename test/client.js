@@ -5,9 +5,13 @@ const HOST = process.env.HOST || '127.0.0.1'
 let PORT = process.env.PORT || 5000
 const BRANCH_NAME = process.env.BRANCH_NAME || "undefined"
 const TRIGGER_BY_USER = process.env.TRIGGER_BY_USER || "true"
-console.log('TRIGGER_BY_USER',String(TRIGGER_BY_USER));
+console.log('TRIGGER_BY_USER = ',String(TRIGGER_BY_USER));
+
+if(["main","master","release"].indexOf(BRANCH_NAME) != -1 ){
+	PORT = 4000;
+}
 if(TRIGGER_BY_USER == "true"){
-	PORT = 1905
+	PORT = 1905;
 }
 
 const socket = new net.Socket();
