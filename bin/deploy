@@ -1,6 +1,7 @@
 #!/bin/bash
 set -x
 set -e
+
 export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 PROJECT="morse"
 namespace="${PROJECT}"
