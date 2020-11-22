@@ -1,6 +1,7 @@
 #!/bin/bash
 set -x
 set -e
+
 export PATH="$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
 PROJECT="morse"
 namespace="${PROJECT}"
@@ -18,5 +19,4 @@ image_tag="${BRANCH_NAME}"
 # trap cleanup EXIT
 # step 4 - deploy
 echo "Deploying ${deployment_name} with image: ${image_tag}"
-# add --create-namespace to create namespace
-helm upgrade --install --wait --set app.tag="${image_tag}" "${deployment_name}" --namespace "${namespace}" ./chart
+# helm upgrade --install --wait --create-namespace --set app.tag="${image_tag}" "${deployment_name}" --namespace "${namespace}" ./chart
